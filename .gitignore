@@ -1,0 +1,12 @@
+*.vcxproj
+*.sdf
+*.sln
+*.suo
+*.filters
+build
+Debug
+Release
+Static
+*.obj
+*.o
+*.opensdf
