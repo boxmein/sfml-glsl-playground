@@ -18,7 +18,7 @@ int main()
 	ofstream outfile; 
 	outfile.open("stdout.txt", std::ofstream::out);
 	outfile << "=== Started. ===" << endl 
-			<< "More info about errors is in stdout (SFML output)" << endl;
+			<< "SFML should output more into standard output if an error occurs!" << endl;
 	
 	//
 	// Initialize the window
