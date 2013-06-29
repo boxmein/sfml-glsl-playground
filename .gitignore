@@ -3,10 +3,14 @@
 *.sln
 *.suo
 *.filters
+*.obj
+*.o
+*.opensdf
+*.dll
+
 build
 Debug
 Release
 Static
-*.obj
-*.o
-*.opensdf
+
+src/shaders
