@@ -8,6 +8,7 @@
 *.opensdf
 *.dll
 *.user
+stdout.txt
 
 build
 Debug
