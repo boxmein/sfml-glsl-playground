@@ -5,10 +5,11 @@ using std::endl;
 #include "Main.h"
 
 
+
 //
 // Defines the entry point for the application. Cross-platform support is ensured via sfml-main.lib
 //
-int main()
+int main(int argc, char **argv)
 {
 	int width = WIDTH, height = HEIGHT; 
 	bool fullscreen = false, paused = false; 
@@ -38,10 +39,10 @@ int main()
 	//         3-2
 	//
 	sf::VertexArray triangles(sf::TrianglesStrip, 4); 
-	triangles[0].position = sf::Vector2f(WIDTH, 0); 
+	triangles[0].position = sf::Vector2f(width, 0); 
 	triangles[1].position = sf::Vector2f(0, 0); 
-	triangles[2].position = sf::Vector2f(WIDTH, HEIGHT);
-	triangles[3].position = sf::Vector2f(0, HEIGHT); 
+	triangles[2].position = sf::Vector2f(width, height);
+	triangles[3].position = sf::Vector2f(0, height); 
 
 		
 	if (!sf::Shader::isAvailable()) {
@@ -72,13 +73,22 @@ int main()
 				window.close(); 
 				break;
 			case sf::Event::Resized:
+				
 				width = event.size.width; 
 				height = event.size.height;
+				outfile << "-- Resized window to " << width << "; " << height << endl;
 				break;
 			case sf::Event::KeyPressed:
 				if (event.key.code == sf::Keyboard::F11) {
 					if (fullscreen) {
 						window.create(sf::VideoMode(width = WIDTH, height = HEIGHT), "SFML works!");
+
+						// TODO: compress this somehow
+						triangles[0].position = sf::Vector2f(width, 0); 
+						triangles[1].position = sf::Vector2f(0, 0); 
+						triangles[2].position = sf::Vector2f(width, height);
+						triangles[3].position = sf::Vector2f(0, height); 
+
 						fullscreen = false;
 						outfile << "-- Releasing from fullscreen, setting new width: " << width << "; height: " 
 							    << height << endl << "   Fullscreen is now false!" << endl;
@@ -86,13 +96,21 @@ int main()
 					else {
 						// get all the possible fullscreen video modes, ordered best to worst
 						std::vector<sf::VideoMode> fsmodes = sf::VideoMode::getFullscreenModes();
-						// take the best
+						// take the best of the video modes
 						width = fsmodes[0].width;
 						height = fsmodes[0].height; 
 						outfile << "-- Creating fullscreen window with width: " << width << "; height: " << height
 							    << endl << "   Fullscreen is now true!" << endl;
+
 						sf::VideoMode ournew(width, height, fsmodes[0].bitsPerPixel);
 						window.create(ournew, "SFML works!", sf::Style::Fullscreen);
+
+						// TODO: remove repetitive code
+						triangles[0].position = sf::Vector2f(width, 0); 
+						triangles[1].position = sf::Vector2f(0, 0); 
+						triangles[2].position = sf::Vector2f(width, height);
+						triangles[3].position = sf::Vector2f(0, height); 
+
 						fullscreen = true;
 					}
 				}
@@ -101,6 +119,12 @@ int main()
 				{
 					if (fullscreen) {
 						window.create(sf::VideoMode(width = WIDTH, height = HEIGHT), "SFML works!");
+						// TODO: remove repetitive code
+						triangles[0].position = sf::Vector2f(width, 0); 
+						triangles[1].position = sf::Vector2f(0, 0); 
+						triangles[2].position = sf::Vector2f(width, height);
+						triangles[3].position = sf::Vector2f(0, height); 
+
 						fullscreen = false;
 						outfile << "-- Releasing from fullscreen, setting new width: " << width << "; height: " 
 							    << height << endl << "   Fullscreen is now false!" << endl;
@@ -117,16 +141,15 @@ int main()
 		
 		// expose variables to GLSL
 		if (!paused) {
-			
-		shader.setParameter("texture", sf::Shader::CurrentTexture);
-		shader.setParameter("mouse", sf::Vector2f(sf::Mouse::getPosition(window).x, 
-									 sf::Mouse::getPosition(window).y));
-		shader.setParameter("time", clock.getElapsedTime().asSeconds()); 
-		shader.setParameter("resolution", sf::Vector2f(width, height));
+			shader.setParameter("texture", sf::Shader::CurrentTexture);
+			shader.setParameter("mouse", sf::Vector2f(sf::Mouse::getPosition(window).x, 
+										 sf::Mouse::getPosition(window).y));
+			shader.setParameter("time", clock.getElapsedTime().asSeconds()); 
+			shader.setParameter("resolution", sf::Vector2f(width, height));
 
 
-        window.clear();
-		window.draw(triangles, states); 
+			window.clear();
+			window.draw(triangles, states); 
 		}
         window.display();
     }
@@ -135,4 +158,3 @@ int main()
 	outfile.close();
     return 0;
 }
-
