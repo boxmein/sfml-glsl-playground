@@ -1,54 +1,57 @@
-SFML - GLSL - playground, inspired by http://glsl.heroku.com/
-=============================================================
+SFML - GLSL - playground
+========================
 
+inspired by http://glsl.heroku.com/
 Basically an offline version of the above (also supports tinkering with vertex 
 shaders!)
 
 
 
-Table of contents
-=================
+## 0. Table of contents
  
- * How to compile
-   - Necessary libraries
+ 1. How to compile
+   1.1 Necessary libraries
+   1.2 For Windows
+    1.2.1 Visual Studio project
+    1.2.2 umm
+   1.3 For Linux
+   1.4 For what is possible
 
- * How to run
-   - Keyboard shortcuts
+ 2. How to run
+   2.1 Keyboard shortcuts
+ 
+ 3. How to modify shaders
+   3.1 How the vertices are positioned
+   3.2 Variables accessible by GLSL
+ 4. Credits
 
- * How to modify shaders
- * Credits
+## 1. How to compile
 
-How to compile
-==============
+### 1.2 For Windows 
 
-For Windows 
------------
-
-### Plan A. ###
+#### 1.2.1 Plan A.
 
 Use the packaged Visual Studio 2012 project to compile. Its downfall is that it 
 only runs with [Visual Studio 2012](http://www.microsoft.com/visualstudio/eng/downloads#d-express-windows-desktop).
 
-### Plan B. ###
+#### 1.2.2 Plan B.
 
 1. Follow [this guide](http://sfml-dev.org/tutorials/2.0/start-vc.php) for Visual
    Studio or [that guide](http://sfml-dev.org/tutorials/2.0/start-cb.php) for 
    Code::Blocks or mingw-gcc.
 
-For Linux
----------
+### 1.3 For Linux
  
 1. Follow [this guide](http://sfml-dev.org/tutorials/2.0/start-linux.php) and 
-   try to make sense of the makefile.
+   try to make sense of the makefile. Note however the makefile most likely does
+   not work!
 
-For whatever else
------------------
+### 1.4 For whatever else
 
 See if [anything here](http://sfml-dev.org/tutorials/2.0/) covers your compilation
 needs.
 
-How to run
-==========
+## 2. How to run
 
 1. Make sure there's a directory called 'shaders' next to the program containing 
   two files: `shader.frag` and `shader.vert`. Those two are the vertex and fragment
@@ -58,34 +61,36 @@ How to run
 
 3. Run the executable!
 
-Keyboard shortcuts
-------------------
+### 2.1 Keyboard shortcuts
 
 **F11** - Fullscreen (Not yet implemented fully)  
 **Space** - Pause
 
 
-How to modify shaders
-=====================
+## 3. How to modify shaders
 
-The vertices
-------------
+The program has tried to replicate the environment of glsl.heroku.com as much as 
+possible. The program will look for `shaders/shader.vert` and `shaders/shader.frag` 
+as the shader files.
 
-The program will look for `shaders/shader.vert` and `shaders/shader.frag` as the
-shader files.
+### 3.1 The vertices
 
-The shaders are run onto a preset VertexArray that contains two triangles, the 
-end points of which are as such: 
+The shaders are run onto a preset VertexArray(sf::TrianglesStrip) that contains
+two triangles, the end points of which are as such: 
 
     (1): (WIDTH, 0) ; (0, 0) ; (WIDTH, HEIGHT) 
     (2): (0,0) ; (WIDTH, HEIGHT) ; (0, HEIGHT)
+
+    Or, rather: 
+      1-0
+      |\|
+      3-2
 
 As such, they cover the entire surface area of the window. The shader window is 
 the only GUI that the program has. Messages and output are written to a file
 (stdout.txt).
 
-The variables
--------------
+### 3.2 The variables
 
 The program exposes four variables to the script - the vertexes' texture,  the 
 mouse position, the time in seconds (with decimals) and the width/height 
