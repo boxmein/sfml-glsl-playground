@@ -8,14 +8,15 @@ shaders!)
 
 
 ## 0. Table of contents
- 
- 1. How to compile
-   1.1 Necessary libraries
-   1.2 For Windows
-    1.2.1 Visual Studio project
-    1.2.2 umm
-   1.3 For Linux
-   1.4 For what is possible
+
+<pre>
+ 1. How to compile  
+   1.1 Necessary libraries  
+   1.2 For Windows  
+    1.2.1 Visual Studio project  
+    1.2.2 umm  
+   1.3 For Linux  
+   1.4 For what is possible  
 
  2. How to run
    2.1 Keyboard shortcuts
@@ -24,7 +25,9 @@ shaders!)
    3.1 How the vertices are positioned
    3.2 Variables accessible by GLSL
  4. Credits
+</pre>
 
+---
 ## 1. How to compile
 
 ### 1.2 For Windows 
@@ -57,7 +60,7 @@ needs.
   two files: `shader.frag` and `shader.vert`. Those two are the vertex and fragment
   shaders that will be executed. The syntax must be correct et cetera.
 
-2. If it's compiled non-statically, check if the required SFML dll files exist. 
+2. If it's compiled non-statically, check if the required SFML shader library files exist. 
 
 3. Run the executable!
 
